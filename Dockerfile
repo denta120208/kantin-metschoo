@@ -1,5 +1,5 @@
-# Gunakan base image PHP 8.1 dengan FPM
-FROM php:8.1-fpm
+# Gunakan base image PHP 8.2 dengan FPM
+FROM php:8.2-fpm
 
 # Install dependensi sistem
 RUN apt-get update && apt-get install -y \
@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
+    libzip-dev \
+    libicu-dev \
     zip \
     unzip \
     nodejs \
@@ -17,7 +19,15 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install ekstensi PHP yang diperlukan
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-install \
+    pdo_mysql \
+    mbstring \
+    exif \
+    pcntl \
+    bcmath \
+    gd \
+    intl \
+    zip
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -28,8 +38,8 @@ WORKDIR /var/www
 # Copy seluruh kode proyek
 COPY . /var/www
 
-# Install dependensi Composer
-RUN composer install --no-interaction
+# Install dependensi Composer dengan mengabaikan persyaratan platform
+RUN composer install --no-interaction --ignore-platform-reqs
 
 # Install dependensi npm
 RUN npm install && npm run build
