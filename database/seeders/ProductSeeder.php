@@ -12,10 +12,10 @@ class ProductSeeder extends Seeder
         $products = [
             1 => 'image/download (1).jpeg',
             2 => 'image/63300cfd403f0.jpg',
-            3 => 'image/download.jpeg',
-            4 => 'image/download.jpeg',
-            5 => 'image/download.jpeg',
-            10 => 'image/download.jpeg',
+            3 => 'image/mie ayam.jpeg',
+            4 => 'image/bakso.jpeg',
+            5 => 'image/soto.webp',
+            6 => 'image/ayam.jpg',
         ];
 
         foreach ($products as $productId => $image) {

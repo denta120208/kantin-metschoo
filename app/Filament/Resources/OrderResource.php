@@ -16,16 +16,21 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
-    // Eager Loading
-    public static function query($query)
+    // Enhanced Eager Loading with specific columns
+    public static function getEloquentQuery(): Builder
     {
-        return $query->with(['user:id,name', 'product:id,name,price']);
+        return parent::getEloquentQuery()
+            ->with([
+                'user:id,name',
+                'product:id,name,price'
+            ]);
     }
 
     public static function form(Form $form): Form
