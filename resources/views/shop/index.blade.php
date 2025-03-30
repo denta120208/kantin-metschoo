@@ -32,7 +32,7 @@
         <!-- Product Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             @foreach($products as $product)
-          
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 animate-fade-up" style="animation-delay: {{ 100 * $loop->index }}ms">
                 <!-- Image with overlay hover effect -->
                 <div class="relative w-full h-64 overflow-hidden group">
                     <img src="{{ asset('storage/' . $product->image) }}" 
